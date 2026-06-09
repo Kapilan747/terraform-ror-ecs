@@ -1,0 +1,46 @@
+aws_region = "ap-south-2"
+
+project_name = "kapilan-tf-ror"
+
+vpc_id = "vpc-0e9f0df1f58cdc387"
+
+existing_alb_name = "kapilan-ror-alb"
+
+ecr_image_uri = "618015514579.dkr.ecr.ap-south-2.amazonaws.com/kapilan_manual_ror_ecr:fdca1fd"
+
+container_name = "kapilan-tf-ror-container"
+container_port = 80
+
+instance_type = "t3.small"
+
+asg_min_size         = 1
+asg_desired_capacity = 1
+asg_max_size         = 2
+
+ecs_desired_count = 1
+
+db_host = "database-1.cdemucmcme2a.ap-south-2.rds.amazonaws.com"
+db_name = "myapp_production"
+
+db_username_secret_arn     = "arn:aws:secretsmanager:ap-south-2:618015514579:secret:kapilan-tf-ror/db-username-xxxxxx"
+db_password_secret_arn     = "arn:aws:secretsmanager:ap-south-2:618015514579:secret:kapilan-tf-ror/db-password-xxxxxx"
+rails_master_key_secret_arn = "arn:aws:secretsmanager:ap-south-2:618015514579:secret:kapilan-tf-ror/rails-master-key-xxxxxx"
+secret_key_base_secret_arn  = "arn:aws:secretsmanager:ap-south-2:618015514579:secret:kapilan-tf-ror/secret-key-base-xxxxxx"
+
+rds_security_group_id = "sg-0602018ddaf0e3c26"
+
+route53_zone_name = "kapilan.tech"
+domain_name       = "tf-products.kapilan.tech"
+
+https_rule_priority = 30
+
+ecs_min_capacity = 1
+ecs_max_capacity = 2
+
+alert_email          = "kapilan357@gmail.com"
+pipeline_alert_email = "kapilan357@gmail.com"
+
+github_owner          = "Kapilan747"
+github_repo           = "todo_app"
+github_branch         = "terraform-ecs"
+github_actions_branch = "terraform-ecs"
