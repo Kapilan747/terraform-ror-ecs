@@ -109,6 +109,32 @@ data "aws_iam_policy_document" "github_actions_deploy_policy" {
   }
 
   statement {
+    sid    = "UploadCodePipelineSource"
+    effect = "Allow"
+
+    actions = [
+      "s3:PutObject"
+    ]
+
+    resources = [
+      "${aws_s3_bucket.pipeline_artifacts.arn}/source/source.zip"
+    ]
+  }
+
+  statement {
+    sid    = "StartTerraformRoRCodePipeline"
+    effect = "Allow"
+
+    actions = [
+      "codepipeline:StartPipelineExecution"
+    ]
+
+    resources = [
+      aws_codepipeline.app.arn
+    ]
+  }
+
+  statement {
     sid    = "PassEcsExecutionRole"
     effect = "Allow"
 
