@@ -24,3 +24,13 @@ resource "aws_security_group" "ecs_instance_sg" {
     Project = var.project_name
   }
 }
+
+resource "aws_security_group_rule" "rds_mysql_from_ecs_instances" {
+  type                     = "ingress"
+  from_port                = 3306
+  to_port                  = 3306
+  protocol                 = "tcp"
+  security_group_id        = var.rds_security_group_id
+  source_security_group_id = aws_security_group.ecs_instance_sg.id
+  description              = "Allow MySQL from Terraform RoR ECS instances"
+}
