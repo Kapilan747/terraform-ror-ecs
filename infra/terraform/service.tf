@@ -26,6 +26,12 @@ resource "aws_ecs_service" "app" {
     aws_ecs_cluster_capacity_providers.main
   ]
 
+  lifecycle {
+    ignore_changes = [
+      task_definition
+    ]
+  }
+
   tags = {
     Name    = "${var.project_name}-service"
     Project = var.project_name
