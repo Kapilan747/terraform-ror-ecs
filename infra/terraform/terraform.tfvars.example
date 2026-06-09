@@ -54,3 +54,5 @@ subnet_ids = [
 alb_security_group_id = "sg-0edaffe26250397ca"
 
 key_name = "Ec2_learn"
+
+https_listener_arn = "arn:aws:elasticloadbalancing:ap-south-2:618015514579:listener/app/kapilan-ror-alb/3621377bb15e33eb/9f702cd4afa00dbd"

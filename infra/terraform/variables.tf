@@ -166,3 +166,8 @@ variable "key_name" {
   description = "EC2 key pair name for ECS container instances"
   type        = string
 }
+
+variable "https_listener_arn" {
+  description = "Existing ALB HTTPS listener ARN"
+  type        = string
+}
