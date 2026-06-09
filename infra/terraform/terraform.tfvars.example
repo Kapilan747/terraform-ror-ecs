@@ -44,3 +44,13 @@ github_owner          = "Kapilan747"
 github_repo           = "todo_app"
 github_branch         = "terraform-ecs"
 github_actions_branch = "terraform-ecs"
+
+subnet_ids = [
+  "subnet-012cea0b3c04eb8b8",
+  "subnet-03cc2bd15d780a627",
+  "subnet-06e17c4e0a989e54d"
+]
+
+alb_security_group_id = "sg-0edaffe26250397ca"
+
+key_name = "Ec2_learn"

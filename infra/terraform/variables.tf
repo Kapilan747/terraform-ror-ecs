@@ -151,3 +151,18 @@ variable "pipeline_alert_email" {
   description = "Email address for deployment status notifications"
   type        = string
 }
+
+variable "subnet_ids" {
+  description = "Subnets for ECS EC2 Auto Scaling Group"
+  type        = list(string)
+}
+
+variable "alb_security_group_id" {
+  description = "Security group ID attached to the existing ALB"
+  type        = string
+}
+
+variable "key_name" {
+  description = "EC2 key pair name for ECS container instances"
+  type        = string
+}
