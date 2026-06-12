@@ -38,7 +38,3 @@ resource "aws_acm_certificate_validation" "app" {
   validation_record_fqdns = [for record in aws_route53_record.app_cert_validation : record.fqdn]
 }
 
-resource "aws_lb_listener_certificate" "app" {
-  listener_arn    = var.https_listener_arn
-  certificate_arn = aws_acm_certificate_validation.app.certificate_arn
-}

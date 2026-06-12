@@ -70,8 +70,7 @@ resource "aws_iam_role_policy" "ecs_task_execution_secrets_policy" {
           "secretsmanager:GetSecretValue"
         ]
         Resource = [
-          var.db_username_secret_arn,
-          var.db_password_secret_arn,
+          aws_db_instance.app.master_user_secret[0].secret_arn,
           var.rails_master_key_secret_arn,
           var.secret_key_base_secret_arn
         ]

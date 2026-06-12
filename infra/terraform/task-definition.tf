@@ -35,7 +35,7 @@ resource "aws_ecs_task_definition" "app" {
         },
         {
           name  = "DB_HOST"
-          value = var.db_host
+          value = aws_db_instance.app.address
         },
         {
           name  = "DB_NAME"
@@ -54,11 +54,11 @@ resource "aws_ecs_task_definition" "app" {
       secrets = [
         {
           name      = "DB_USERNAME"
-          valueFrom = var.db_username_secret_arn
+          valueFrom = "${aws_db_instance.app.master_user_secret[0].secret_arn}:username::"
         },
         {
           name      = "DB_PASSWORD"
-          valueFrom = var.db_password_secret_arn
+          valueFrom = "${aws_db_instance.app.master_user_secret[0].secret_arn}:password::"
         },
         {
           name      = "RAILS_MASTER_KEY"
