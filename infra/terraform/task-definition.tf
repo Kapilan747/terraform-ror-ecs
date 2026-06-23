@@ -77,7 +77,7 @@ resource "aws_ecs_task_definition" "app" {
           awslogs-region        = var.aws_region
           awslogs-stream-prefix = var.project_name
         }
-      }
+      } 
 
       healthCheck = {
         command     = ["CMD-SHELL", "curl -fsS http://localhost/up || curl -fsS http://localhost/ || exit 1"]
