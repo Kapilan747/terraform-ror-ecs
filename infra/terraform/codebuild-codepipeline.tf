@@ -111,11 +111,32 @@ resource "aws_codebuild_project" "app" {
     type                        = "LINUX_CONTAINER"
     privileged_mode             = true
     image_pull_credentials_type = "CODEBUILD"
+
+   environment_variable {
+    name  = "AWS_DEFAULT_REGION"
+    value = var.aws_region
+   }
+
+  environment_variable {
+    name  = "AWS_ACCOUNT_ID"
+    value = data.aws_caller_identity.current.account_id
+   }
+
+  environment_variable {
+    name  = "ECR_REPOSITORY_NAME"
+    value = "kapilan_manual_ror_ecr"
+   }
+
+  environment_variable {
+    name  = "ECS_CONTAINER_NAME"
+    value = "${var.project_name}-container"
+   }
+
   }
 
   source {
-    type = "CODEPIPELINE"
-  }
+    type = "CODEPIPELINE"  
+ }
 
   logs_config {
     cloudwatch_logs {
@@ -239,7 +260,7 @@ resource "aws_codepipeline" "app" {
       configuration = {
         S3Bucket             = aws_s3_bucket.pipeline_artifacts.bucket
         S3ObjectKey          = "source/source.zip"
-        PollForSourceChanges = "false"
+        PollForSourceChanges = "true"
       }
     }
   }
