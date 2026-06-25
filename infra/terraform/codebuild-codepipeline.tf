@@ -72,6 +72,7 @@ resource "aws_iam_role_policy" "codebuild_policy" {
         Effect = "Allow"
         Action = [
           "ecr:GetAuthorizationToken"
+          "ecr:GetLoginPassword"
         ]
         Resource = "*"
       },
