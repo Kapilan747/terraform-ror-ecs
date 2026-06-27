@@ -26,27 +26,6 @@ resource "aws_lb_target_group" "app" {
   }
 }
 
-resource "aws_lb_listener_rule" "app_https" {
-  listener_arn = aws_lb_listener.https.arn
-  priority     = var.https_rule_priority
-
-  action {
-    type             = "forward"
-    target_group_arn = aws_lb_target_group.app.arn
-  }
-
-  condition {
-    host_header {
-      values = [var.domain_name]
-    }
-  }
-
-  tags = {
-    Name    = "${var.project_name}-https-rule"
-    Project = var.project_name
-  }
-}
-
 resource "aws_lb" "app" {
   name               = "${var.project_name}-alb"
   internal           = false
@@ -95,13 +74,8 @@ resource "aws_lb_listener" "https" {
   certificate_arn   = aws_acm_certificate_validation.app.certificate_arn
 
   default_action {
-    type = "fixed-response"
-
-    fixed_response {
-      content_type = "text/plain"
-      message_body = "No matching route"
-      status_code  = "404"
-    }
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.app.arn
   }
 
   tags = {

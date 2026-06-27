@@ -62,11 +62,11 @@ resource "aws_ecs_task_definition" "app" {
         },
         {
           name      = "RAILS_MASTER_KEY"
-          valueFrom = var.rails_master_key_secret_arn
+          valueFrom = aws_secretsmanager_secret.rails_master_key.arn
         },
         {
           name      = "SECRET_KEY_BASE"
-          valueFrom = var.secret_key_base_secret_arn
+          valueFrom = aws_secretsmanager_secret.secret_key_base.arn
         }
       ]
 
@@ -77,7 +77,7 @@ resource "aws_ecs_task_definition" "app" {
           awslogs-region        = var.aws_region
           awslogs-stream-prefix = var.project_name
         }
-      } 
+      }
 
       healthCheck = {
         command     = ["CMD-SHELL", "curl -fsS http://localhost/up || curl -fsS http://localhost/ || exit 1"]

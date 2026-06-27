@@ -8,16 +8,6 @@ variable "project_name" {
   type        = string
 }
 
-variable "vpc_id" {
-  description = "Existing VPC ID where ALB, ECS, ASG, and RDS are running"
-  type        = string
-}
-
-variable "existing_alb_name" {
-  description = "Existing ALB name to reuse"
-  type        = string
-}
-
 variable "ecr_image_uri" {
   description = "Initial ECR image URI for ECS task definition"
   type        = string
@@ -59,40 +49,14 @@ variable "ecs_desired_count" {
   type        = number
 }
 
-variable "db_host" {
-  description = "RDS MySQL endpoint"
-  type        = string
-}
+
 
 variable "db_name" {
   description = "Rails production database name"
   type        = string
 }
 
-variable "db_username_secret_arn" {
-  description = "Secrets Manager ARN for DB_USERNAME"
-  type        = string
-}
 
-variable "db_password_secret_arn" {
-  description = "Secrets Manager ARN for DB_PASSWORD"
-  type        = string
-}
-
-variable "rails_master_key_secret_arn" {
-  description = "Secrets Manager ARN for RAILS_MASTER_KEY"
-  type        = string
-}
-
-variable "secret_key_base_secret_arn" {
-  description = "Secrets Manager ARN for SECRET_KEY_BASE"
-  type        = string
-}
-
-variable "rds_security_group_id" {
-  description = "Existing RDS security group ID to allow ECS access"
-  type        = string
-}
 
 variable "route53_zone_name" {
   description = "Route 53 hosted zone name"
@@ -152,23 +116,19 @@ variable "pipeline_alert_email" {
   type        = string
 }
 
-variable "subnet_ids" {
-  description = "Subnets for ECS EC2 Auto Scaling Group"
-  type        = list(string)
-}
 
-variable "alb_security_group_id" {
-  description = "Security group ID attached to the existing ALB"
-  type        = string
-}
 
 variable "key_name" {
   description = "EC2 key pair name for ECS container instances"
   type        = string
 }
 
-variable "https_listener_arn" {
-  description = "Existing ALB HTTPS listener ARN"
-  type        = string
+
+variable "rails_master_key" {
+  type = string
 }
 
+
+variable "secret_key_base" {
+  type = string
+}

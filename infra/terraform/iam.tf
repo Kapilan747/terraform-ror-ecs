@@ -71,10 +71,17 @@ resource "aws_iam_role_policy" "ecs_task_execution_secrets_policy" {
         ]
         Resource = [
           aws_db_instance.app.master_user_secret[0].secret_arn,
-          var.rails_master_key_secret_arn,
-          var.secret_key_base_secret_arn
+          aws_secretsmanager_secret.rails_master_key.arn,
+          aws_secretsmanager_secret.secret_key_base.arn
         ]
       }
     ]
   })
+}
+
+
+resource "aws_iam_role_policy_attachment" "cloudwatch_agent" {
+  role = aws_iam_role.ecs_instance_role.name
+
+  policy_arn = "arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy"
 }

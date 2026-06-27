@@ -71,7 +71,7 @@ resource "aws_iam_role_policy" "codebuild_policy" {
         Sid    = "EcrAuth"
         Effect = "Allow"
         Action = [
-          "ecr:GetAuthorizationToken"
+          "ecr:GetAuthorizationToken",
           "ecr:GetLoginPassword"
         ]
         Resource = "*"
@@ -90,7 +90,7 @@ resource "aws_iam_role_policy" "codebuild_policy" {
           "ecr:UploadLayerPart"
         ]
         Resource = [
-          "arn:aws:ecr:${var.aws_region}:${data.aws_caller_identity.current.account_id}:repository/kapilan_manual_ror_ecr"
+          aws_ecr_repository.app.arn
         ]
       }
     ]
@@ -113,31 +113,31 @@ resource "aws_codebuild_project" "app" {
     privileged_mode             = true
     image_pull_credentials_type = "CODEBUILD"
 
-   environment_variable {
-    name  = "AWS_DEFAULT_REGION"
-    value = var.aws_region
-   }
+    environment_variable {
+      name  = "AWS_DEFAULT_REGION"
+      value = var.aws_region
+    }
 
-  environment_variable {
-    name  = "AWS_ACCOUNT_ID"
-    value = data.aws_caller_identity.current.account_id
-   }
+    environment_variable {
+      name  = "AWS_ACCOUNT_ID"
+      value = data.aws_caller_identity.current.account_id
+    }
 
-  environment_variable {
-    name  = "ECR_REPOSITORY_NAME"
-    value = "kapilan_manual_ror_ecr"
-   }
+    environment_variable {
+      name  = "ECR_REPOSITORY_NAME"
+      value = "aws_ecr_repository.app.name"
+    }
 
-  environment_variable {
-    name  = "ECS_CONTAINER_NAME"
-    value = "${var.project_name}-container"
-   }
+    environment_variable {
+      name  = "ECS_CONTAINER_NAME"
+      value = "${var.project_name}-container"
+    }
 
   }
 
   source {
-    type = "CODEPIPELINE"  
- }
+    type = "CODEPIPELINE"
+  }
 
   logs_config {
     cloudwatch_logs {
