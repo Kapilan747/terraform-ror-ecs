@@ -40,13 +40,14 @@ data "aws_iam_policy_document" "github_actions_assume_role" {
       ]
     }
 
-    condition {
-      test     = "StringEquals"
-      variable = "token.actions.githubusercontent.com:sub"
-      values = [
-        "repo:${var.github_owner}/${var.github_repo}:ref:refs/heads/${var.github_actions_branch}"
-      ]
-    }
+condition {
+  test     = "StringLike"
+  variable = "token.actions.githubusercontent.com:sub"
+
+  values = [
+    "repo:Kapilan747/todo_app:*"
+  ]
+}
   }
 }
 

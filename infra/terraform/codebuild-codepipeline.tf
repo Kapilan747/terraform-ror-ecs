@@ -71,8 +71,7 @@ resource "aws_iam_role_policy" "codebuild_policy" {
         Sid    = "EcrAuth"
         Effect = "Allow"
         Action = [
-          "ecr:GetAuthorizationToken",
-          "ecr:GetLoginPassword"
+          "ecr:GetAuthorizationToken"
         ]
         Resource = "*"
       },
@@ -125,12 +124,12 @@ resource "aws_codebuild_project" "app" {
 
     environment_variable {
       name  = "ECR_REPOSITORY_NAME"
-      value = "aws_ecr_repository.app.name"
+      value = aws_ecr_repository.app.name
     }
 
     environment_variable {
       name  = "ECS_CONTAINER_NAME"
-      value = "${var.project_name}-container"
+      value = "kapilan_manual_ror_ecr"
     }
 
   }
